@@ -10,7 +10,7 @@ function App() {
 	const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
 	const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
 	const [selectedCard, setSelectedCard] = React.useState(null)
-	
+
 	function handleEditProfileClick() {
 		setIsEditProfilePopupOpen(true)
 	}
@@ -22,7 +22,7 @@ function App() {
 	function handleEditAvatarClick() {
 		setIsEditAvatarPopupOpen(true)
 	}
-	
+
 	function handleCardClick(selectedCard) {
 		setSelectedCard(selectedCard)
 	}
@@ -38,19 +38,19 @@ function App() {
 		<div className="body">
 			<div className="page">
 				<Header />
-				<Main 
-				onEditProfile={handleEditProfileClick}
-				onAddPlace={handleAddPlaceClick}
-        onEditAvatar={handleEditAvatarClick}
-				onCardClick={handleCardClick}
+				<Main
+					onEditProfile={handleEditProfileClick}
+					onAddPlace={handleAddPlaceClick}
+					onEditAvatar={handleEditAvatarClick}
+					onCardClick={handleCardClick}
 				/>
 				<Footer />
-				<PopupWithForm 
-				title="Редактировать профиль"
-				name="profile"
-				buttonText="Сохранить"
-				isOpen={isEditProfilePopupOpen}
-				onClose={closeAllPopups}
+				<PopupWithForm
+					title="Редактировать профиль"
+					name="profile"
+					buttonText="Сохранить"
+					isOpen={isEditProfilePopupOpen}
+					onClose={closeAllPopups}
 				>
 					<input className="popup__field popup__field_type_name" name="name" type="text" minLength="2" maxLength="40" placeholder="Имя" required />
 					<span className="popup__field-error" id="name-error"></span>
@@ -58,11 +58,11 @@ function App() {
 					<span className="popup__field-error" id="about-error"></span>
 				</PopupWithForm>
 				<PopupWithForm
-				title="Новое место"
-				name="card"
-				buttonText="Создать"
-				isOpen={isAddPlacePopupOpen}
-				onClose={closeAllPopups}
+					title="Новое место"
+					name="card"
+					buttonText="Создать"
+					isOpen={isAddPlacePopupOpen}
+					onClose={closeAllPopups}
 				>
 					<input className="popup__field popup__field_type_title" name="nameCard" type="text" minLength="2" maxLength="30" placeholder="Название" required />
 					<span className="popup__field-error" id="nameCard-error"></span>
@@ -70,21 +70,21 @@ function App() {
 					<span className="popup__field-error" id="link-error"></span>
 				</PopupWithForm>
 				<ImagePopup
-				onClose={closeAllPopups}
-				card={selectedCard}
+					onClose={closeAllPopups}
+					card={selectedCard}
 				></ImagePopup>
 				<PopupWithForm
-				title="Вы уверены?"
-				name="deletion"
-				buttonText="Да"
-				onClose={closeAllPopups}
+					title="Вы уверены?"
+					name="deletion"
+					buttonText="Да"
+					onClose={closeAllPopups}
 				></PopupWithForm>
 				<PopupWithForm
-				title="Обновить аватар"
-				name="avatar"
-				buttonText="Сохранить"
-				isOpen={isEditAvatarPopupOpen}
-				onClose={closeAllPopups}
+					title="Обновить аватар"
+					name="avatar"
+					buttonText="Сохранить"
+					isOpen={isEditAvatarPopupOpen}
+					onClose={closeAllPopups}
 				>
 					<input className="popup__field popup__field_type_src" name="avatar" type="url" placeholder="Ссылка на картинку" required />
 					<span className="popup__field-error" id="avatar-error"></span>
