@@ -3,8 +3,8 @@ import PopupWithForm from "./PopupWithForm";
 
 function EditAvatarPopup(props) {
 	const avatarRef = React.useRef();
-	const [ linkError, setLinkError ] = React.useState('');
-	const [ isLinkValid, setIsLinkValid ] = React.useState(true);
+	const [linkError, setLinkError] = React.useState('');
+	const [isLinkValid, setIsLinkValid] = React.useState(true);
 	const activeButton = isLinkValid;
 
 	function handleSubmit(evt) {
@@ -21,16 +21,16 @@ function EditAvatarPopup(props) {
 			setLinkError('Неверный адрес изображения');
 			setIsLinkValid(false)
 		} else if (!linkRule.test(avatarRef.current.value)) {
-				setLinkError('Поле не может быть пустым');
-				setIsLinkValid(false)
+			setLinkError('Поле не может быть пустым');
+			setIsLinkValid(false)
 		} else {
-				setLinkError('');
-				setIsLinkValid(true)
+			setLinkError('');
+			setIsLinkValid(true)
 		}
 	}
 
 	React.useEffect(() => {
-		avatarRef.current.value='';
+		avatarRef.current.value = '';
 		setLinkError('');
 		setIsLinkValid(false);
 	}, [props.isOpen])

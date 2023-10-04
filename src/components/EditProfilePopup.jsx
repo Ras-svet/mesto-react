@@ -3,12 +3,12 @@ import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function EditProfilePopup(props) {
-	const [ name, setName ] = React.useState("");
-	const [ nameError, setNameError ] = React.useState("");
-	const [ descriptionError, setDescriptionError ] = React.useState("");
-	const [ isNameValid, setIsNameValid ] = React.useState(true);
-	const [ isDescriptionValid, setIsDescriptionValid ] = React.useState(true);
-	const [ description, setDescription ] = React.useState("");
+	const [name, setName] = React.useState("");
+	const [nameError, setNameError] = React.useState("");
+	const [descriptionError, setDescriptionError] = React.useState("");
+	const [isNameValid, setIsNameValid] = React.useState(true);
+	const [isDescriptionValid, setIsDescriptionValid] = React.useState(true);
+	const [description, setDescription] = React.useState("");
 	const currentUser = React.useContext(CurrentUserContext);
 	const activeButton = isDescriptionValid && isNameValid
 
@@ -17,9 +17,9 @@ function EditProfilePopup(props) {
 		if (!evt.target.value) {
 			setNameError("Поле не может быть пустым");
 			setIsNameValid(false)
-		} else if (evt.target.value.length < 2 || evt.target.value.length > 40) { 
-				setNameError('Имя не может быть короче 2 символов или длинее 40 символов');
-				setIsNameValid(false)
+		} else if (evt.target.value.length < 2 || evt.target.value.length > 40) {
+			setNameError('Имя не может быть короче 2 символов или длинее 40 символов');
+			setIsNameValid(false)
 		} else {
 			setNameError('');
 			setIsNameValid(true)
@@ -32,11 +32,11 @@ function EditProfilePopup(props) {
 			setDescriptionError("Поле не может быть пустым");
 			setIsDescriptionValid(false)
 		} if (evt.target.value.length < 2 || evt.target.value.length > 40) {
-				setDescriptionError('Описание не может быть короче 2 символов или длинее 40 символов')
-				setIsDescriptionValid(false)
+			setDescriptionError('Описание не может быть короче 2 символов или длинее 40 символов')
+			setIsDescriptionValid(false)
 		} else {
-				setDescriptionError('')
-				setIsDescriptionValid(true)
+			setDescriptionError('')
+			setIsDescriptionValid(true)
 		}
 	}
 

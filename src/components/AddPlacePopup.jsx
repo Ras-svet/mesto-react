@@ -4,10 +4,10 @@ import PopupWithForm from "./PopupWithForm";
 function AddPlacePopup(props) {
 	const namePlaceRef = React.useRef();
 	const linkPlaceRef = React.useRef();
-	const [ linkError, setLinkError ] = React.useState('');
-	const [ nameError, setNameError ] = React.useState('');
-	const [ isNameValid, setIsNameValid ] = React.useState(true);
-	const [ isLinkValid, setIsLinkValid ] = React.useState(true);
+	const [linkError, setLinkError] = React.useState('');
+	const [nameError, setNameError] = React.useState('');
+	const [isNameValid, setIsNameValid] = React.useState(true);
+	const [isLinkValid, setIsLinkValid] = React.useState(true);
 	const activeButton = isLinkValid && isNameValid
 
 	function handleSubmit(evt) {
@@ -24,12 +24,12 @@ function AddPlacePopup(props) {
 			setNameError("Поле не может быть пустым");
 			setIsNameValid(false)
 		} else if (evt.target.value.length < 2 || evt.target.value.length > 30) {
-				setNameError('Название не может быть короче 2 символов или длинее 30 символов')
-				setIsNameValid(false)
+			setNameError('Название не может быть короче 2 символов или длинее 30 символов')
+			setIsNameValid(false)
 		} else {
-				setNameError('');
-				setIsNameValid(true)
-				console.log(activeButton)
+			setNameError('');
+			setIsNameValid(true)
+			console.log(activeButton)
 		}
 	}
 
@@ -39,18 +39,18 @@ function AddPlacePopup(props) {
 			setLinkError('Поле не может быть пустым');
 			setIsLinkValid(false)
 		} else if (!linkRule.test(linkPlaceRef.current.value)) {
-				setLinkError('Неверный адрес изображения');
-				setIsLinkValid(false)
+			setLinkError('Неверный адрес изображения');
+			setIsLinkValid(false)
 		} else {
-				setLinkError('');
-				setIsLinkValid(true);
-				console.log(activeButton)
+			setLinkError('');
+			setIsLinkValid(true);
+			console.log(activeButton)
 		}
 	}
 
 	React.useEffect(() => {
-		namePlaceRef.current.value='';
-		linkPlaceRef.current.value='';
+		namePlaceRef.current.value = '';
+		linkPlaceRef.current.value = '';
 		setIsLinkValid(false);
 		setIsNameValid(false);
 		setLinkError('');

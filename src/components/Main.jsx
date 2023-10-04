@@ -26,15 +26,15 @@ function Main(props) {
 				{props.cards.map(card => {
 					return (
 						<Card
-						card={card}
-						key={card._id}
-						link={card.link}
-						name={card.name}
-						likes={card.likes}
-						onCardClick={props.onCardClick}
-						onCardLike={props.onCardLike}
-						onCardDelete={props.onCardDelete}
-						/> 
+							card={card}
+							key={card._id}
+							link={card.link}
+							name={card.name}
+							likes={card.likes}
+							onCardClick={props.onCardClick}
+							onCardLike={props.onCardLike}
+							onCardDelete={props.onCardDelete}
+						/>
 					)
 				})}
 			</section>
