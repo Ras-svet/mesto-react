@@ -6,31 +6,37 @@ function EditProfilePopup(props) {
 	const [ name, setName ] = React.useState("");
 	const [ nameError, setNameError ] = React.useState("");
 	const [ descriptionError, setDescriptionError ] = React.useState("");
-	const [ activeButton, setActiveButton ] = React.useState(true);
+	const [ isNameValid, setIsNameValid ] = React.useState(true);
+	const [ isDescriptionValid, setIsDescriptionValid ] = React.useState(true);
 	const [ description, setDescription ] = React.useState("");
 	const currentUser = React.useContext(CurrentUserContext);
+	const activeButton = isDescriptionValid && isNameValid
 
 	function handleNameChange(evt) {
 		setName(evt.target.value);
-		if (evt.target.value.length < 2 || evt.target.value.length > 40) {
-			setNameError('Имя не может быть короче 2 символов или длинее 40 символов')
-			if (!evt.target.value) {
-				setNameError("Поле не может быть пустым")
-			}
+		if (!evt.target.value) {
+			setNameError("Поле не может быть пустым");
+			setIsNameValid(false)
+		} else if (evt.target.value.length < 2 || evt.target.value.length > 40) { 
+				setNameError('Имя не может быть короче 2 символов или длинее 40 символов');
+				setIsNameValid(false)
 		} else {
-			setNameError('')
+			setNameError('');
+			setIsNameValid(true)
 		}
 	}
 
 	function handleDescriptionChange(evt) {
 		setDescription(evt.target.value);
-		if (evt.target.value.length < 2 || evt.target.value.length > 40) {
-			setDescriptionError('Описание не может быть короче 2 символов или длинее 40 символов')
-			if (!evt.target.value) {
-				setDescriptionError("Поле не может быть пустым")
-			}
+		if (!evt.target.value) {
+			setDescriptionError("Поле не может быть пустым");
+			setIsDescriptionValid(false)
+		} if (evt.target.value.length < 2 || evt.target.value.length > 40) {
+				setDescriptionError('Описание не может быть короче 2 символов или длинее 40 символов')
+				setIsDescriptionValid(false)
 		} else {
-			setDescriptionError('')
+				setDescriptionError('')
+				setIsDescriptionValid(true)
 		}
 	}
 
@@ -44,23 +50,12 @@ function EditProfilePopup(props) {
 
 	React.useEffect(() => {
 		setName(currentUser.name);
-		setDescription(currentUser.about)
-	}, [currentUser]);
-
-	React.useEffect(() => {
-		if (nameError === '' && descriptionError === '') {
-			setActiveButton(true)
-		} else {
-			setActiveButton(false)
-		}
-	}, [name, description])
-
-	React.useEffect(() => {
-		setName(currentUser.name);
 		setDescription(currentUser.about);
+		setIsNameValid(true);
+		setIsDescriptionValid(true);
 		setDescriptionError('');
 		setNameError('')
-	}, [props.isOpen])
+	}, [props.isOpen, currentUser])
 
 	return (
 		<PopupWithForm
@@ -70,7 +65,7 @@ function EditProfilePopup(props) {
 			isOpen={props.isOpen}
 			onClose={props.onClose}
 			onSubmit={handleSubmit}
-			onActive={activeButton}
+			isActive={activeButton}
 		>
 			<input className="popup__field popup__field_type_name" name="name" type="text" value={name || ""} onChange={handleNameChange} minLength="2" maxLength="40" placeholder="Имя" required />
 			<span className="popup__field-error" id="name-error">{nameError}</span>

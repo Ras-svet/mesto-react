@@ -2,7 +2,6 @@ import React from 'react';
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import api from '../utils/api';
@@ -86,8 +85,7 @@ function App() {
 	function handleCardDelete(card) {
 		api.deleteCard(card._id)
 		.then(() => {
-			const newCards = cards.filter(c => c._id !== card._id);
-			setCards(newCards);
+			setCards((state) => state.filter((c) => c._id !== card._id));
 			closeAllPopups()
 		})
 		.catch(err => {
@@ -117,7 +115,7 @@ function App() {
 		})
 	}
 
-	function handleAddPlaceSumbit(data) {
+	function handleAddPlaceSubmit(data) {
 		api.addCard(data)
 		.then((newCard) => {
 			setCards([newCard, ...cards]);
@@ -143,11 +141,32 @@ function App() {
 						onCardDelete={handleCardDeleteConfirm}
 					/>
 					<Footer />
-					<EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
-					<AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSumbit} />
-					<ImagePopup onClose={closeAllPopups} card={selectedCard} />
-					<ConfirmDeleteCardPopup isOpen={isCardDeletePopupOpen} onClose={closeAllPopups} onActive={true} onCardDelete={handleCardDelete} card={deletedCard} />
-					<EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
+					<EditProfilePopup 
+						isOpen={isEditProfilePopupOpen} 
+						onClose={closeAllPopups} 
+						onUpdateUser={handleUpdateUser} 
+					/>
+					<AddPlacePopup 
+						isOpen={isAddPlacePopupOpen} 
+						onClose={closeAllPopups} 
+						onAddPlace={handleAddPlaceSubmit} 
+					/>
+					<ImagePopup 
+						onClose={closeAllPopups} 
+						card={selectedCard} 
+					/>
+					<ConfirmDeleteCardPopup 
+						isOpen={isCardDeletePopupOpen} 
+						onClose={closeAllPopups} 
+						isActive={true} 
+						onCardDelete={handleCardDelete} 
+						card={deletedCard} 
+					/>
+					<EditAvatarPopup 
+						isOpen={isEditAvatarPopupOpen} 
+						onClose={closeAllPopups} 
+						onUpdateAvatar={handleUpdateAvatar} 
+					/>
 				</div>
 			</div>
 		</CurrentUserContext.Provider>

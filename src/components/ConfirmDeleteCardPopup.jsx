@@ -14,9 +14,9 @@ function ConfirmDeleteCardPopup(props) {
 			buttonText="Да"
 			isOpen={props.isOpen}
 			onClose={props.onClose}
-			onActive={props.onActive}
+			isActive={props.isActive}
 			onSubmit={handleSubmit}
-		></PopupWithForm>
+		/>
 	)
 }
 

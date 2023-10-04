@@ -8,7 +8,7 @@ function PopupWithForm(props) {
 				<h2 className="popup__title">{props.title}</h2>
 				<form className="popup__forms" name={props.name} onSubmit={props.onSubmit}>
 					{props.children}
-					<button className={`popup__save-button ${!props.onActive ? 'popup__save-button_disabled' : ''}`} type="submit" aria-label="кнопка сохранения изменений">{props.buttonText}</button>
+					<button className={`popup__save-button ${!props.isActive ? 'popup__save-button_disabled' : ''}`} type="submit" aria-label="кнопка сохранения изменений">{props.buttonText}</button>
 				</form>
 			</div>
 		</section>

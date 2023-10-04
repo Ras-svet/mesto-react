@@ -6,7 +6,9 @@ function AddPlacePopup(props) {
 	const linkPlaceRef = React.useRef();
 	const [ linkError, setLinkError ] = React.useState('');
 	const [ nameError, setNameError ] = React.useState('');
-	const [ activeButton, setActiveButton ] = React.useState(true);
+	const [ isNameValid, setIsNameValid ] = React.useState(true);
+	const [ isLinkValid, setIsLinkValid ] = React.useState(true);
+	const activeButton = isLinkValid && isNameValid
 
 	function handleSubmit(evt) {
 		evt.preventDefault();
@@ -18,40 +20,39 @@ function AddPlacePopup(props) {
 	}
 
 	function handleNameChange(evt) {
-		if (evt.target.value.length < 2 || evt.target.value.length > 30) {
-			setNameError('Название не может быть короче 2 символов или длинее 30 символов')
-			if (!evt.target.value) {
-				setNameError("Поле не может быть пустым")
-			}
+		if (!evt.target.value) {
+			setNameError("Поле не может быть пустым");
+			setIsNameValid(false)
+		} else if (evt.target.value.length < 2 || evt.target.value.length > 30) {
+				setNameError('Название не может быть короче 2 символов или длинее 30 символов')
+				setIsNameValid(false)
 		} else {
-			setNameError('')
+				setNameError('');
+				setIsNameValid(true)
+				console.log(activeButton)
 		}
 	}
 
 	function handleLinkChange(evt) {
 		const linkRule = new RegExp('^http(?::\\/\\/|s:\\/\\/).*?\\.(?:gif|jpg|png)$', 'i')
-		if (!linkRule.test(linkPlaceRef.current.value)) {
-			setLinkError('Неверный адрес изображения')
-			if (!linkPlaceRef.current.value) {
-				setLinkError('Поле не может быть пустым')
-			}
+		if (!linkPlaceRef.current.value) {
+			setLinkError('Поле не может быть пустым');
+			setIsLinkValid(false)
+		} else if (!linkRule.test(linkPlaceRef.current.value)) {
+				setLinkError('Неверный адрес изображения');
+				setIsLinkValid(false)
 		} else {
-			setLinkError('')
+				setLinkError('');
+				setIsLinkValid(true);
+				console.log(activeButton)
 		}
 	}
 
 	React.useEffect(() => {
-		if (nameError === '' && linkError === '') {
-			setActiveButton(true)
-		} else {
-			setActiveButton(false)
-		}
-	}, [nameError, linkError])
-
-	React.useEffect(() => {
-		setActiveButton(false);
 		namePlaceRef.current.value='';
 		linkPlaceRef.current.value='';
+		setIsLinkValid(false);
+		setIsNameValid(false);
 		setLinkError('');
 		setNameError('')
 	}, [props.isOpen])
@@ -64,7 +65,7 @@ function AddPlacePopup(props) {
 			isOpen={props.isOpen}
 			onClose={props.onClose}
 			onSubmit={handleSubmit}
-			onActive={activeButton}
+			isActive={activeButton}
 		>
 			<input className="popup__field popup__field_type_title" name="nameCard" ref={namePlaceRef} onChange={handleNameChange} type="text" minLength="2" maxLength="30" placeholder="Название" required />
 			<span className="popup__field-error" id="nameCard-error">{nameError}</span>
